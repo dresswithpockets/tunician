@@ -529,14 +529,17 @@ update_input :: proc(state: ^State) {
         state.cursor -= 1
     }
     if rl.IsKeyPressed(.BACKSPACE) {
-        if state.cursor == 0 {
+        if state.cursor == 0 && len(state.phrase) == 1 {
             state.phrase[state.cursor].phonic = Empty
         } else {
             prev := state.phrase[state.cursor]
+            ordered_remove(&state.phrase, int(state.cursor))
             cleanup_phoneme(prev)
-            pop(&state.phrase)
             free(prev)
             state.cursor -= 1
+            if state.cursor < 0 {
+                state.cursor = 0
+            }
         }
     }
 }
