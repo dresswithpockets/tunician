@@ -6,4 +6,6 @@ Here are all of the pages with translations aided by Tunician, in order by appea
 
 ![image](manual_28.jpg)
 
+![image](manual_49.jpg)
+
 ![image](manual_51.jpg)
