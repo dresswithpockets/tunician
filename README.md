@@ -1,10 +1,6 @@
 # tunician
 A mediocre tool for decoding the runic language from the game Tunic
 
-### Phonemes 
-
-Huge credit goes to [u/oposdeo](https://www.reddit.com/user/oposdeo) who did all the work of actually decoding the runic code. See their post [here](https://www.reddit.com/r/TunicGame/comments/tgc056/tunic_language_reference_sheet_big_spoiler/).
-
 ## How To Use
 
 After downloading the [latest release](https://github.com/dresswithpockets/tunician/releases), or building the latest version from source, simply run it and a UI will appear:
@@ -27,3 +23,9 @@ Click                  on the lines in the central rune to toggle them on/off;
  - Empty runes are treated as half-width spaces
  - There is no punctuation support
  - The phrase will cut off if it is too long
+
+## Phonemes 
+
+Huge credit goes to [u/oposdeo](https://www.reddit.com/user/oposdeo) who did all the work of actually decoding the runic code. See their post [here](https://www.reddit.com/r/TunicGame/comments/tgc056/tunic_language_reference_sheet_big_spoiler/).
+
+![image](https://user-images.githubusercontent.com/4009005/159781939-e8cdea7c-3e82-4e98-ae71-b12b47d63bf0.png)
