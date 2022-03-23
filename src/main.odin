@@ -558,10 +558,6 @@ main :: proc() {
 
     for !rl.WindowShouldClose() {
 
-        title := fmt.tprintf("Tunician %v", rl.GetMousePosition())
-        cstr := strings.clone_to_cstring(title, context.temp_allocator)
-        rl.SetWindowTitle(cstr)
-
         update_input(&state)
 
         draw_state(&state)
@@ -571,35 +567,6 @@ main :: proc() {
 
         render_state(&state)
 
-        // {
-        //     _, dest, origin := get_active_draw_components(&state)
-        //     node_rad := state.node_size / 2.0
-        //     cell_h := f32(dest.height - 2) / 6.0
-        //     cell_w := f32(dest.width) / 2.0 - node_rad
-        //     for phonic, p in phonic_centers {
-        //         grid_point := rl.Vector2{dest.x - dest.width / 2.0, dest.y - dest.height / 2.0 + state.bottom_padding / 2.0} + GetGridVec(p.x, p.y, cell_w, cell_h, node_rad)
-        //         rl.DrawCircleLines(i32(grid_point.x), i32(grid_point.y), 45, rl.GREEN)
-        //         rl.DrawText(strings.clone_to_cstring(fmt.tprintf("%v", grid_point), context.temp_allocator), i32(grid_point.x), i32(grid_point.y), 10, rl.GRAY)
-        //     }
-        // }
-
         rl.EndDrawing()
-    }
-}
-
-@test
-ensure_vowels_only_outer_cons_only_inner :: proc(t: ^testing.T) {
-    for phonics, translit in phonics_translit {
-        if translit.vowel {
-            diff := phonics - InnerOnly
-            assert(true)
-        } else {
-            diff := phonics - OuterOnly
-            assert(.UpTopRight not_in phonics &&
-                    .UpTopLeft not_in phonics &&
-                    .Left not_in phonics &&
-                    .LowBottomRight not_in phonics &&
-                    .LowBottomLeft not_in phonics)
-        }
     }
 }
