@@ -9,14 +9,18 @@ Huge credit goes to [u/oposdeo](https://www.reddit.com/user/oposdeo) who did all
 
 After downloading the latest release, or building the latest version from source, simply run it and a UI will appear:
 
-
+![image](https://user-images.githubusercontent.com/4009005/159605850-c8d1f743-a861-478d-b6b2-b91ac6cce4c0.png)
 
 The controls are as follows:
 
 ```
-<-/->       Move cursor left and right; moving right at the end of a phrase adds more runes to the phrase
-Backspace   Clear current rune & remove it from the phrase
-Click       on the lines in the central rune to toggle them on/off; toggling the diacritic at the bottom will swap phoneme order
+Left/Right Arrow       Move cursor left and right;
+                       moving right at the end of a phrase adds more runes to the phrase
+
+Backspace              Clear current rune & remove it from the phrase
+
+Click                  on the lines in the central rune to toggle them on/off;
+                       toggling the diacritic at the bottom will swap phoneme order
 ```
 
 ## Notes & Limitations
