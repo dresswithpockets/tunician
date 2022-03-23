@@ -7,7 +7,7 @@ Huge credit goes to [u/oposdeo](https://www.reddit.com/user/oposdeo) who did all
 
 ## How To Use
 
-After downloading the latest release, or building the latest version from source, simply run it and a UI will appear:
+After downloading the [latest release](https://github.com/dresswithpockets/tunician/releases), or building the latest version from source, simply run it and a UI will appear:
 
 ![image](https://user-images.githubusercontent.com/4009005/159605850-c8d1f743-a861-478d-b6b2-b91ac6cce4c0.png)
 
