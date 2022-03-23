@@ -353,21 +353,56 @@ get_phonic_translits :: proc(phonics: Phonics) -> (vowel, cons: ^PhonicTranslit)
 render_state :: proc(state: ^State) {
     // render the whole state, which has a cursor & the offset, the phrase at the top, and the current working phoneme in the
     // bottom center third
-    offset_x := f32(30.0)
+    left_padding := f32(30.0)
+    top_padding := f32(30.0)
+    right_padding := f32(30.0)
+    bottom_padding := f32(30.0)
+    line_margin := f32(15.0)
+
+    offset := rl.Vector2{0, 0}
+    cursor_pos := rl.Vector2{0, 0}
+    cursor_width := f32(0.0)
+
+    cursor_phoneme := state.phrase[state.cursor]
+    screen_width := f32(rl.GetScreenWidth())
+    renderable_width := screen_width - right_padding
+
+    // pre loop to get some information we need for properly rendering/positioning a few things
+    {
+        current_pos := rl.Vector2{left_padding, top_padding}
+        pre_loop: for phoneme in state.phrase {
+            aspect := f32(phoneme.w) / f32(phoneme.h)
+            phrase_width := state.phrase_height * aspect
+            if phoneme.phonic == Empty {
+                phrase_width *= state.space_width_scale
+            }
+
+            // get the current cursor offset
+            if phoneme == cursor_phoneme {
+                cursor_pos.x = current_pos.x
+                cursor_pos.y = current_pos.y
+                cursor_width = phrase_width
+            }
+
+            current_pos.x += phrase_width
+            if current_pos.x > renderable_width {
+                current_pos.x = left_padding
+                current_pos.y -= state.phrase_height + line_margin
+            }
+        }
+        offset = rl.Vector2{left_padding, current_pos.y}
+    }
+
+    // draw blinking cursor
+    if math.mod(rl.GetTime(), 1.5) < 0.75 {
+        cfrom := cursor_pos + rl.Vector2{0.0, top_padding + state.phrase_height}
+        cto := cfrom + rl.Vector2{cursor_width, 0.0}
+        rl.DrawLineEx(cfrom, cto, 5, rl.RAYWHITE)
+    }
 
     // draw phrase phonemes
     {
         phrase_loop: for phoneme in state.phrase {
-            // draw blinking under cursor
-            if phoneme == state.phrase[state.cursor] {
-                cwidth := state.phrase_height * 0.5
-                if math.mod(rl.GetTime(), 1.5) < 0.75 {
-                    cfrom := rl.Vector2{offset_x, state.bottom_padding + state.phrase_height + 5}
-                    cto := rl.Vector2{offset_x + cwidth, state.bottom_padding + state.phrase_height + 5}
-                    rl.DrawLineEx(cfrom, cto, 5, rl.RAYWHITE)
-                }
-            }
-
             width := f32(phoneme.w)
             height := f32(phoneme.h)
             aspect := width / height
@@ -375,11 +410,15 @@ render_state :: proc(state: ^State) {
             phrase_height := state.phrase_height
             phrase_width := phrase_height * aspect
             if phoneme.phonic == Empty {
-                offset_x += phrase_width * state.space_width_scale
+                offset.x += phrase_width * state.space_width_scale
+                if offset.x > renderable_width {
+                    offset.x = left_padding
+                    offset.y += state.phrase_height + line_margin
+                }
                 continue phrase_loop
             }
 
-            dest := rl.Rectangle{offset_x, state.bottom_padding, phrase_width, phrase_height}
+            dest := rl.Rectangle{offset.x, offset.y, phrase_width, phrase_height}
             origin := rl.Vector2{0, 0}
 
             rl.DrawTexturePro(
@@ -412,7 +451,11 @@ render_state :: proc(state: ^State) {
                 rl.DrawText(sound_cstr, i32(dest.x + dest.width * 0.5) - sound_width / 2.0, i32(dest.y) + i32(dest.height) - i32(origin.y) + i32(state.bottom_padding), 18.0, rl.WHITE)
             }
             
-            offset_x += dest.width
+            offset.x += dest.width
+            if offset.x > renderable_width {
+                offset.x = left_padding
+                offset.y += state.phrase_height + line_margin
+            }
         }
     }
 
