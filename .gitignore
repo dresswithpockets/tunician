@@ -3,6 +3,7 @@
 *.dll
 *.exp
 *.lib
+*.zip
 
 .vscode/launch.json
 ols.json
