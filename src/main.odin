@@ -50,7 +50,7 @@ ORE_Your    :: Phonics{.UpTopLeft, .UpTopRight, .Left, .LowBottomRight}
 
 B_Baby      :: Phonics{.UpMiddle, .LowTopRight}
 CH_Chat     :: Phonics{.UpBottomLeft, .LowMiddle}
-D_Dog       :: Phonics{.UpBottomRight, .LowTopLeft, .LowTopRight}
+D_Dog       :: Phonics{.UpMiddle, .LowTopLeft, .LowTopRight}
 F_Fox       :: Phonics{.UpBottomRight, .LowTopLeft, .LowMiddle}
 G_Gun       :: Phonics{.UpBottomRight, .LowTopRight, .LowMiddle}
 H_Hop       :: Phonics{.UpMiddle, .LowTopRight, .LowMiddle}
