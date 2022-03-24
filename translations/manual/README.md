@@ -17,6 +17,9 @@ Here are all of the pages with translations aided by Tunician, in order by appea
 47.
 ![image](manual_47.jpg)
 
+48.
+![image](manual_48.jpg)
+
 49.
 ![image](manual_49.jpg)
 
