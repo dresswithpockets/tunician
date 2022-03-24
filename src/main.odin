@@ -175,21 +175,21 @@ draw_part :: proc(phoneme: Phonics, part: Phonic, from, to: rl.Vector2, thicknes
     rl.DrawCircleV(to, 8, rl.WHITE)
 }
 
-draw_part_no_point :: proc(phoneme: Phonics, part: Phonic, from, to: rl.Vector2, thickness : f32 = 4) {
+draw_part_no_point :: proc(phoneme: Phonics, part: Phonic, from, to: rl.Vector2, thickness : f32 = 4, draw_when_condition_failed: bool = true) {
     if part in phoneme {
         rl.DrawLineEx(from, to, thickness, rl.WHITE)
     }
-    else {
+    else if draw_when_condition_failed {
         rl.DrawLineEx(from, to, thickness, rl.DARKGRAY)
         //draw_dotted_line(from, to, 10)
     }
 }
 
-draw_part_either_no_point :: proc(phoneme: Phonics, a, b: Phonic, from, to: rl.Vector2, thickness : f32 = 4) {
+draw_part_either_no_point :: proc(phoneme: Phonics, a, b: Phonic, from, to: rl.Vector2, thickness : f32 = 4, draw_when_condition_failed: bool = true) {
     if a in phoneme || b in phoneme {
         rl.DrawLineEx(from, to, thickness, rl.WHITE)
     }
-    else {
+    else if draw_when_condition_failed {
         rl.DrawLineEx(from, to, thickness, rl.DARKGRAY)
     }
 }
@@ -242,24 +242,24 @@ renders phoneme as rune, in a pattern like:
 \ /
  .
 */
-draw_phoneme_no_points :: proc(phonics: Phonics, cell_h, cell_w: f32, node_rad: f32) {
+draw_phoneme_no_points :: proc(phonics: Phonics, cell_h, cell_w: f32, node_rad: f32, draw_when_condition_failed: bool) {
 
-    draw_part_no_point(phonics, .Left, GetGridVec(0, 5, cell_w, cell_h, node_rad), GetGridVec(0, 3.5, cell_w, cell_h, node_rad), 4)
-    draw_part_no_point(phonics, .Left, GetGridVec(0, 3, cell_w, cell_h, node_rad), GetGridVec(0, 2, cell_w, cell_h, node_rad), 4)
+    draw_part_no_point(phonics, .Left, GetGridVec(0, 5, cell_w, cell_h, node_rad), GetGridVec(0, 3.5, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
+    draw_part_no_point(phonics, .Left, GetGridVec(0, 3, cell_w, cell_h, node_rad), GetGridVec(0, 2, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
 
-    draw_part_either_no_point(phonics, .UpMiddle, .LowMiddle, GetGridVec(1, 4, cell_w, cell_h, node_rad), GetGridVec(1, 3.5, cell_w, cell_h, node_rad), 4)
+    draw_part_either_no_point(phonics, .UpMiddle, .LowMiddle, GetGridVec(1, 4, cell_w, cell_h, node_rad), GetGridVec(1, 3.5, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
 
-    draw_part_no_point(phonics, .UpTopLeft, GetGridVec(0, 5, cell_w, cell_h, node_rad), GetGridVec(1, 6, cell_w, cell_h, node_rad))
-    draw_part_no_point(phonics, .UpTopRight, GetGridVec(2, 5, cell_w, cell_h, node_rad), GetGridVec(1, 6, cell_w, cell_h, node_rad))
-    draw_part_no_point(phonics, .UpMiddle, GetGridVec(1, 6, cell_w, cell_h, node_rad), GetGridVec(1, 4, cell_w, cell_h, node_rad))
-    draw_part_no_point(phonics, .UpBottomLeft, GetGridVec(0, 5, cell_w, cell_h, node_rad), GetGridVec(1, 4, cell_w, cell_h, node_rad))
-    draw_part_no_point(phonics, .UpBottomRight, GetGridVec(1, 4, cell_w, cell_h, node_rad), GetGridVec(2, 5, cell_w, cell_h, node_rad))
+    draw_part_no_point(phonics, .UpTopLeft, GetGridVec(0, 5, cell_w, cell_h, node_rad), GetGridVec(1, 6, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
+    draw_part_no_point(phonics, .UpTopRight, GetGridVec(2, 5, cell_w, cell_h, node_rad), GetGridVec(1, 6, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
+    draw_part_no_point(phonics, .UpMiddle, GetGridVec(1, 6, cell_w, cell_h, node_rad), GetGridVec(1, 4, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
+    draw_part_no_point(phonics, .UpBottomLeft, GetGridVec(0, 5, cell_w, cell_h, node_rad), GetGridVec(1, 4, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
+    draw_part_no_point(phonics, .UpBottomRight, GetGridVec(1, 4, cell_w, cell_h, node_rad), GetGridVec(2, 5, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
 
-    draw_part_no_point(phonics, .LowTopLeft, GetGridVec(0, 2, cell_w, cell_h, node_rad), GetGridVec(1, 3, cell_w, cell_h, node_rad))
-    draw_part_no_point(phonics, .LowBottomLeft, GetGridVec(0, 2, cell_w, cell_h, node_rad), GetGridVec(1, 1, cell_w, cell_h, node_rad))
-    draw_part_no_point(phonics, .LowTopRight, GetGridVec(2, 2, cell_w, cell_h, node_rad), GetGridVec(1, 3, cell_w, cell_h, node_rad))
-    draw_part_no_point(phonics, .LowMiddle, GetGridVec(1, 3, cell_w, cell_h, node_rad), GetGridVec(1, 1, cell_w, cell_h, node_rad))
-    draw_part_no_point(phonics, .LowBottomRight, GetGridVec(1, 1, cell_w, cell_h, node_rad), GetGridVec(2, 2, cell_w, cell_h, node_rad))
+    draw_part_no_point(phonics, .LowTopLeft, GetGridVec(0, 2, cell_w, cell_h, node_rad), GetGridVec(1, 3, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
+    draw_part_no_point(phonics, .LowBottomLeft, GetGridVec(0, 2, cell_w, cell_h, node_rad), GetGridVec(1, 1, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
+    draw_part_no_point(phonics, .LowTopRight, GetGridVec(2, 2, cell_w, cell_h, node_rad), GetGridVec(1, 3, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
+    draw_part_no_point(phonics, .LowMiddle, GetGridVec(1, 3, cell_w, cell_h, node_rad), GetGridVec(1, 1, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
+    draw_part_no_point(phonics, .LowBottomRight, GetGridVec(1, 1, cell_w, cell_h, node_rad), GetGridVec(2, 2, cell_w, cell_h, node_rad), 4, draw_when_condition_failed)
 }
 
 draw_phoneme_points :: proc(cell_h, cell_w: f32, node_rad: f32) {
@@ -268,7 +268,7 @@ draw_phoneme_points :: proc(cell_h, cell_w: f32, node_rad: f32) {
     }
 }
 
-draw_phoneme_target :: proc(phoneme: ^Phoneme, target: rl.RenderTexture2D, node_size: f32, with_points: bool) {
+draw_phoneme_to_target :: proc(phoneme: ^Phoneme, target: rl.RenderTexture2D, node_size: f32, with_points: bool) {
     rl.BeginTextureMode(target)
     defer rl.EndTextureMode()
     rl.ClearBackground(rl.BLANK)
@@ -282,7 +282,7 @@ draw_phoneme_target :: proc(phoneme: ^Phoneme, target: rl.RenderTexture2D, node_
     cell_h := f32(phoneme.h - 2) / 6.0
     cell_w := f32(phoneme.w) / 2.0 - node_rad
 
-    draw_phoneme_no_points(phonic, cell_h, cell_w, node_rad)
+    draw_phoneme_no_points(phonic, cell_h, cell_w, node_rad, with_points)
     if with_points {
         draw_phoneme_points(cell_h, cell_w, node_rad)
     }
@@ -307,7 +307,7 @@ draw_phoneme_target :: proc(phoneme: ^Phoneme, target: rl.RenderTexture2D, node_
 }
 
 draw_phoneme :: proc(phoneme: ^Phoneme, node_size: f32, with_points: bool) {
-    draw_phoneme_target(phoneme, phoneme.target, node_size, with_points)
+    draw_phoneme_to_target(phoneme, phoneme.target, node_size, with_points)
 }
 
 draw_state :: proc(state: ^State) {
@@ -315,7 +315,7 @@ draw_state :: proc(state: ^State) {
     for phoneme in state.phrase {
         draw_phoneme(phoneme, state.node_size, false)
         if phoneme == working_phoneme {
-            draw_phoneme_target(phoneme, state.active_target, state.node_size, true)
+            draw_phoneme_to_target(phoneme, state.active_target, state.node_size, true)
         }
     }
 }
