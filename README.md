@@ -26,6 +26,6 @@ Click                  on the lines in the central rune to toggle them on/off;
 
 ## Phonemes 
 
-Huge credit goes to [u/oposdeo](https://www.reddit.com/user/oposdeo) who did all the work of actually decoding the runic code. See their post [here](https://www.reddit.com/r/TunicGame/comments/tgc056/tunic_language_reference_sheet_big_spoiler/).
+Huge credit goes to [u/oposdeo](https://www.reddit.com/user/oposdeo) who appears to have done a good chunk of the work of actually decoding the runic code. See their post [here](https://www.reddit.com/r/TunicGame/comments/tgc056/tunic_language_reference_sheet_big_spoiler/).
 
 ![image](https://user-images.githubusercontent.com/4009005/159781939-e8cdea7c-3e82-4e98-ae71-b12b47d63bf0.png)
